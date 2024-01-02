@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} Add Songs to Album  {% endblock %}
+
+{% block search %} {% endblock %}
+
+{% block content %}
+<div class="container">
+    <center><h1 style="font-family: cursive;"> Add Songs to {{ album.name }} </h1></center>
+    <div class="row">
+        <form method="post" action="{{ url_for('album.add_songs_to_album', album_id=album.id) }}">
+            <label>Select Songs to Add:</label>
+            {% for song in remaining_songs %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="selected_songs" value="{{ song.id }}">
+                    <label class="form-check-label" for="selected_songs_{{ song.id }}">
+                        {{ song.name }}
+                    </label>
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Add Selected Songs</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

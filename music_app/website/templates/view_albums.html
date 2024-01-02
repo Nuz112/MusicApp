@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %} Albums {% endblock %}
+
+{% block search %} 
+
+<form class="d-flex" method="GET" action="{{ url_for('album.search_album') }}" >
+    <input class="form-control me-2"  name="query" type="text" placeholder="Search">
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<a href="{{ url_for('album.create_album') }}" class="btn btn-primary">Create New Album</a>
+
+<div class="container">
+    <center><h1 style="font-family: cursive;"> Albums </h1></center>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for album in albums %}
+        <div class="col">
+            <div class="card" >
+                <a href="{{ url_for('album.view_album_songs', album_id=album.id) }}" style="text-decoration: none; color: inherit;">
+                    <div class="card-body" >
+                        <h5 class="card-title">{{ album.name }}</h5>
+                        <p class="card-text">Songs in Album: {{ album.album_songs|length }}</p>
+                    </div>
+                </a>
+                {% if album.user_id == session.get('user') %}
+                <form action="{{ url_for('album.delete_album', album_id=album.id) }}" method="post">
+                    <button type="submit" class="btn btn-danger" style="margin: 5px;">Delete</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

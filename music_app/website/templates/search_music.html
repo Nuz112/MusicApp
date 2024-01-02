@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %} Search Results {% endblock %}
+
+
+{% block search %} 
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Search Results for "{{ query }}"</h2>
+    
+    {% if results %}
+        <div class="row">
+            {% for song in results %}
+            <div class="col-md-4 mt-5">
+                <div class="card ">
+                    <img src="static/images/music_app_image.jpg" class="card-img-top" alt="music_app_image">
+                    <div class="card-body " style="border: 2px solid black;">
+                        <h5 class="card-title">{{ song.name }}</h5>
+                        <p class="card-text">{{ song.singer }}</p>
+                        <audio controls style="width: 100%;">
+                            <source src="{{ url_for('static', filename='songs/' + song.name) }}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+    
+                        <form method="POST" action="{{ url_for('views.rate_song', song_id=song.id) }}">
+                            <div>
+                                <label for="rating" class="form-label">Rate this song:</label>
+                                <input type="number" name="rating" min="1" max="5">
+                                <button type="submit" class="btn btn-primary">Rate</button>
+                            </div>
+                        </form>
+    
+                        <a href="{{ url_for('views.lyrics', song_id=song.id) }}" class="btn btn-primary"
+                            style="background-color: rgb(232, 78, 109); border-color: brown;">Lyrics</a>
+                        <h6> Average Rate : {{ song.ratings}}</h6>
+                        <a href="{{ url_for('playlist.add_to_playlist', song_id=song.id) }}" class="btn btn-primary">Add to Playlist</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

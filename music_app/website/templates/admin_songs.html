@@ -1,0 +1,45 @@
+{%  extends 'admin_base.html' %}
+
+{% block title %} All Songs {% endblock %}
+
+
+{% block search %} 
+
+<form class="d-flex" method="GET" action="{{ url_for('admin.search_music') }}" >
+    <input class="form-control me-2"  name="query" type="text" placeholder="Search">
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>
+
+{% endblock %}
+
+
+{% block content%}
+<div class="container">
+    <center><h1 style="font-family: cursive;"> Songs </h1></center>
+    <div class="row">
+        {% for song in songs %}
+        <div class="card mt-3 mb-3" style="border: 2px solid black;">
+            <div class="card-header">
+                {{ song.name }}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">
+                    <audio controls style="width: 100%;">
+                        <source src="{{ url_for('static', filename='songs/' + song.name) }}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </h5>
+                <p class="card-text">{{ song.singer }}</p>
+
+                <form action="{{ url_for('admin.delete_song', song_id=song.id) }}" method="post">
+                    
+                    <button type="submit" class="btn btn-danger ">Delete Song</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

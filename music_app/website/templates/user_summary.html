@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %} User Summary {% endblock %}
+
+{% block search %} 
+
+
+
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="display-4">User Summary for {{ user.first_name }} {{ user.last_name }}</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Number of Songs Uploaded</h5>
+                    <p class="card-text">{{ num_songs }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Number of Playlists Created</h5>
+                    <p class="card-text">{{ num_playlists }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Number of Albums Created</h5>
+                    <p class="card-text">{{ num_albums }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Average Rating of Uploaded Songs</h5>
+            <p class="card-text">{{ average_rating|round(2) }}</p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h2>Highest Rated Songs:</h2>
+        <ul class="list-group">
+            {% for song in highest_rated_songs %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ song.name }}
+                <p>Rating: {{ song.ratings|round(2) }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

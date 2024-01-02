@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit Song {% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+    <h2>Edit Song</h2>
+    <form method="post" action="{{ url_for('views.edit_song', song_id=song.id) }}">
+        <!-- Use appropriate form fields based on your Song model -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Song Name:</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ song.name }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="lyrics" class="form-label">Lyrics:</label>
+            <textarea class="form-control" id="lyrics" name="lyrics" rows="5">{{ song.lyrics }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="singer" class="form-label">Singer:</label>
+            <input type="text" class="form-control" id="singer" name="singer" value="{{ song.singer }}" required>
+        </div>
+
+        <!-- Add more fields as needed -->
+
+        <button type="submit" class="btn btn-primary">Update Song</button>
+    </form>
+</div>
+{% endblock %}

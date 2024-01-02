@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %} Add To Playlist Page {% endblock %}
+
+{% block search %} 
+
+{% endblock %}
+
+
+{% block content %}
+
+
+ <div style="margin-top: 100px; padding: 20px;">
+<form method="POST" action="{{ url_for('playlist.add_to_playlist', song_id=song_id) }}">
+   
+   <div style="border: 2px solid black; padding: 20px;">
+    <h3>Select Playlist</h3>
+    <label for="playlist">Select an existing playlist:</label>
+    <select name="playlist" id="playlist" style="width: 150px;">
+        <option value="" disabled selected>Select a playlist</option>
+        {% for playlist in playlists %}
+            <option value="{{ playlist.id }}">{{ playlist.name }}</option>
+        {% endfor %}
+    </select>
+    </div>
+
+
+    <div style="border: 2px solid black; margin-top: 30px; padding: 20px;">
+    <h3>Create a Playlist</h3>
+
+    <label for="new_playlist">Create a new playlist:</label>
+    <input type="text" name="new_playlist" id="new_playlist" placeholder="Enter a new playlist name">
+</div>
+
+
+    <div style="margin-top: 20px;">
+    <button type="submit" class="btn btn-dark" > Add Song </button>
+    </div>
+
+
+</form>
+</div>
+
+{% endblock %}

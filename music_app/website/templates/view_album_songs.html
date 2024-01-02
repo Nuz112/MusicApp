@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %} Album Songs  {% endblock %}
+
+{% block search %} {% endblock %}
+
+
+
+{% block content%}
+
+
+<div class="container">
+    <center><h1 style="font-family: cursive;"> {{album.name}} </h1></center>
+    {% if album.user_id == session.get('user') %}
+    <div class="row mt-3">
+        <form method="get" action="{{ url_for('album.add_songs_to_album', album_id=album.id) }}">
+            <button type="submit" class="btn btn-primary">Add Songs to Album</button>
+        </form>
+    </div>
+{% endif %}
+    <div class="row">
+        {% for song in songs %}
+        <div class="card mt-3 mb-3" style="border: 2px solid black;">
+            <div class="card-header">
+                {{ song.name }}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">
+                    <audio controls style="width: 100%;">
+                        <source src="{{ url_for('static', filename='songs/' + song.name) }}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </h5>
+                <p class="card-text">{{ song.singer }}</p>
+
+                {% if album.user_id == session.get('user') %}
+                <form action="{{ url_for('album.remove_from_album', song_id=song.id, album_id=album.id) }}" method="post">
+                    
+                    <button type="submit" class="btn btn-danger ">Remove From Album</button>
+                </form>
+                {% endif %}
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+
+</div>
+
+
+{% endblock %}

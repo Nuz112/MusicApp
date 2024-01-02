@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %} Lyrics Page {% endblock %}
+
+{% block search %} {% endblock %}
+
+{% block content %}
+  <h1>{{ song.name }} Lyrics</h1>
+  <p> <pre>{{ song.lyrics }}</pre> </p>
+  <a href="{{ url_for('views.home') }}" class="btn btn-primary">Back to Home</a>
+{% endblock %}

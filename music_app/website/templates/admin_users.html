@@ -1,0 +1,67 @@
+{%  extends 'admin_base.html' %}
+
+{% block title %} Users Details {% endblock %}
+
+
+{% block search %} 
+
+<form class="d-flex" method="GET" action="{{ url_for('admin.search_user') }}" >
+    <input class="form-control me-2"  name="query" type="text" placeholder="Search">
+    <button class="btn btn-primary" type="submit">Search</button>
+</form>
+
+{% endblock %}
+
+
+
+
+
+
+
+{% block content %}
+
+
+
+<div class="container">
+    <h2>User List</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>White List Status</th>
+                <th>User Status </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ "Whitelisted" if user.white_list else "Blacklisted" }}</td>
+                    <td>{{ "Creator" if is_creator(user) else "Normal" }}</td>
+                    <td>
+                        <form method="post" action="{{ url_for('admin.toggle_white_list', user_id=user.id) }}">
+                            <button type="submit" class="btn btn-primary">
+                                {% if user.white_list %}
+                                    Add to Blacklist
+                                {% else %}
+                                    Add to Whitelist
+                                {% endif %}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
+
+
+

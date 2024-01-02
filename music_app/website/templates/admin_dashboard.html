@@ -1,0 +1,73 @@
+{% extends 'admin_base.html' %}
+
+
+{% block title %}Admin Dashboard {% endblock %}
+
+{% block search %} {% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">Total Users</h2>
+                <p class="card-text lead">{{ num_users }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">Total Albums</h2>
+                <p class="card-text lead">{{ num_albums }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">Number Of Creators</h2>
+                <p class="card-text lead">{{ num_users_uploaded_songs }}</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">Top-Rated Songs</h2>
+                <ul class="list-group">
+                    {% for song in top_rated_songs %}
+                    <li class="list-group-item">{{ song.name }} (Average Rating: {{ song.ratings|round(2) }})</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">Top Songs by Playlist Count</h2>
+                <img src="data:image/png;base64,{{ img_data }}" alt="Playlist Chart">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock %}
