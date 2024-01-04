@@ -2,10 +2,10 @@
 
 {% block title %} Home Page {% endblock %}
 
-{% block search %} 
+{% block search %}
 
-<form class="d-flex" method="GET" action="{{ url_for('views.search_music') }}" >
-    <input class="form-control me-2"  name="query" type="text" placeholder="Search">
+<form class="d-flex" method="GET" action="{{ url_for('views.search_music') }}">
+    <input class="form-control me-2" name="query" type="text" placeholder="Search">
     <button class="btn btn-primary" type="submit">Search</button>
 </form>
 
@@ -35,7 +35,7 @@
                     </select>
                     <button type="submit" class="btn btn-primary mt-3">Filter</button>
                 </form>
-                <h1  class="mt-3" style="font-family: cursive;">
+                <h1 class="mt-3" style="font-family: cursive;">
                     <center>{{selected_songs}} Songs </center>
                 </h1>
 
@@ -61,10 +61,22 @@
                         </div>
                     </form>
 
-                    <a href="{{ url_for('views.lyrics', song_id=song.id) }}" class="btn btn-primary"
-                        style="background-color: rgb(232, 78, 109); border-color: brown;">Lyrics</a>
-                    <h6> Average Rate : {{ song.ratings|round(2) }}</h6>
-                    <a href="{{ url_for('playlist.add_to_playlist', song_id=song.id) }}" class="btn btn-primary">Add to Playlist</a>
+                    <div class="row">
+                        <div class="col-md-2"> <a href="{{ url_for('views.lyrics', song_id=song.id) }}"
+                                class="btn btn-primary"
+                                style="background-color: rgb(232, 78, 109); border-color: rgb(198, 88, 88);">Lyrics</a>
+                        </div>
+
+                        <div class="col-md-5" style="margin-top: 5px; ">
+                            <h6> Average Rate : {{ song.ratings|round(2) }}</h6>
+                        </div>
+                        <div class="col-md-5"> <a href="{{ url_for('playlist.add_to_playlist', song_id=song.id) }}"
+                                class="btn btn-primary">Add to Playlist</a></div>
+
+                    </div>
+
+
+
                 </div>
             </div>
         </div>
