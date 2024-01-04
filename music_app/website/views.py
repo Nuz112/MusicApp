@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, url_for, session, redirect, render_template, flash, request
 from . import db
 from .models import Song, Rating, Playlist, Album, User
-from os.path import join
+from os.path import join, dirname
+from os import makedirs
 
 
 
@@ -82,7 +83,13 @@ def upload_song():
 
                 # Save the song file to a storage location
                     #song_file.save('website/static' + song_file.filename)
-                    song_file.save(join('website', 'static', 'songs', song_file.filename))
+                    #song_file.save(join('website', 'static', 'songs', song_file.filename))
+                    save_path = join('website', 'static', 'songs', song_file.filename)
+                    # Ensure the directory exists, create it if not
+                    makedirs(dirname(save_path), exist_ok=True)
+                    song_file.save(save_path)
+
+
                     flash('Song uploaded successfully', 'success')
                     return redirect(url_for('views.upload_song'))
                 
@@ -201,7 +208,7 @@ def delete_song(song_id):
     else:
         flash('Please log in to delete a song', 'error')
 
-    return redirect(url_for('views.home'))
+    return redirect(url_for('views.upload_song'))
 
 
 
