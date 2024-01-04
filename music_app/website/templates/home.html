@@ -67,7 +67,7 @@
                                 style="background-color: rgb(232, 78, 109); border-color: rgb(198, 88, 88);">Lyrics</a>
                         </div>
 
-                        <div class="col-md-5" style="margin-top: 5px; ">
+                        <div class="col-md-5" style="margin-top: 5px; padding-left: 22px; ">
                             <h6> Average Rate : {{ song.ratings|round(2) }}</h6>
                         </div>
                         <div class="col-md-5"> <a href="{{ url_for('playlist.add_to_playlist', song_id=song.id) }}"
