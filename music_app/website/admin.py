@@ -66,7 +66,7 @@ def admin_dashboard():
         labels = [song.name for song, _ in top_popular_songs]
         counts = [count for _, count in top_popular_songs]
 
-        fig, ax = plt.subplots(figsize=(7.2, 5.8))
+        fig, ax = plt.subplots()
         ax.bar(labels, counts)
         ax.set_ylabel('Number of Playlists')
         ax.set_title('Top Songs by Playlist Count')
