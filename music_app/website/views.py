@@ -19,10 +19,7 @@ views = Blueprint('views', __name__)
 def home():
     user_name = session.get('user_name')
     if user_name:
-        # Comment out the line below to use the API route instead of the direct database query
         songs = Song.query.all()
-        # Uncomment the line below to use the API route for fetching all songs
-        # songs = api_get_songs()
         return render_template("home.html", user_name=user_name, songs=songs)
     else:
         flash('Please Login First')
